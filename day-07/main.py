@@ -1,4 +1,12 @@
-global_accumulator = 0;
+
+global_accumulator = 0
+
+# Part 2 Requirements:
+#   Disk space: 70000000 
+#   Currenlty used: 47442399
+#   Required Min: 30000000 
+global_min_size = 30000000
+global_available_space = (70000000 - 47442399)
 
 class Dir:
 
@@ -24,6 +32,13 @@ class Dir:
         if total_size <= 100000:
             global global_accumulator
             global_accumulator += total_size
+
+        global global_min_size
+        global global_avaialable_space
+    
+        if global_available_space + total_size >= 30000000 and total_size < global_min_size:
+            global_min_size = total_size
+            print(f"New target dir: {total_size}")
 
         return total_size
 
