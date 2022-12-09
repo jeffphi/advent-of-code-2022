@@ -1,3 +1,5 @@
+global_accumulator = 0;
+
 class Dir:
 
     def __init__(self, name,):
@@ -19,10 +21,11 @@ class Dir:
 
         #print(f'Total size of {self.name} is {total_size}')
 
-        if total_size <= 100000 or self.name == '/':
-            return total_size
+        if total_size <= 100000:
+            global global_accumulator
+            global_accumulator += total_size
 
-        return 0
+        return total_size
 
 root = Dir('/')
 cur_dir = root
@@ -51,6 +54,6 @@ total_size = 0
 total_size += root.get_total_size()
 print(f'Total size: {total_size}')
 print(f'Root Info: {root}')
-
+print(f'Global Accumulator: {global_accumulator}')
 
 
