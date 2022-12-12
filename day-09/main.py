@@ -3,13 +3,21 @@ class Location:
     y = 0
 
 head = Location()
+k2 = Location()
+k3 = Location()
+k4 = Location()
+k5 = Location()
+k6 = Location()
+k7 = Location()
+k8 = Location()
+k9 = Location()
 tail = Location()
+
 tracker = {}
 tracker['0,0'] = True
 
-def move_tail():
-    global head
-    global tail
+def move_tail(head, tail, record_move):
+
     global tracker
 
     h_dist = abs(head.x - tail.x)
@@ -29,7 +37,8 @@ def move_tail():
             tail.y += 1
         if head.y < tail.y:
             tail.y -= 1
-        tracker[f'{tail.x},{tail.y}'] = True
+        if record_move:
+            tracker[f'{tail.x},{tail.y}'] = True
         return
 
     # Diagonal move
@@ -43,39 +52,45 @@ def move_tail():
     else:
         tail.y -= 1
 
-    tracker[f'{tail.x},{tail.y}'] = True
+    if record_move:
+        tracker[f'{tail.x},{tail.y}'] = True
     return
+
+    
 
 f = open('input.txt', 'r', encoding='utf-8')
 
 for line in f:
     tokens = line.split()
-    
-    match tokens[0]:
-        case 'U':
-            steps = int(tokens[1])
-            while steps > 0:
+    direction = tokens[0]
+    steps = int(tokens[1])
+
+    # print(f'### {line} ###')
+
+    while steps > 0:
+        match direction:
+            case 'U':
                 head.y += 1
-                move_tail()
-                steps -= 1
-        case 'D':
-            steps = int(tokens[1])
-            while steps > 0:
+            case 'D':
                 head.y -= 1
-                move_tail()
-                steps -= 1
-        case 'L':
-            steps = int(tokens[1])
-            while steps > 0:
+            case 'L':
                 head.x -= 1
-                move_tail()
-                steps -= 1
-        case 'R':
-            steps = int(tokens[1])
-            while steps > 0:
+            case 'R':
                 head.x += 1
-                move_tail()
-                steps -= 1
+        
+        move_tail(head, k2, False) 
+        move_tail(k2, k3, False) 
+        move_tail(k3, k4, False) 
+        move_tail(k4, k5, False) 
+        move_tail(k5, k6, False) 
+        move_tail(k6, k7, False) 
+        move_tail(k7, k8, False) 
+        move_tail(k8, k9, False) 
+        move_tail(k9, tail, True) 
+        steps -= 1
+
+   # for k in tracker.keys():
+   #     print(k)
 
 print('Tracker size: ', len(tracker))
 
